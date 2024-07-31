@@ -9,19 +9,21 @@ import { useState } from 'react';
 function App() {
   const [state, handleSubmit] = useForm(process.env.REACT_APP_SUBMIT_CODE);
   const [emailError, setEmailError] = useState('');
-  const HUNTER_API_KEY = process.env.REACT_APP_API_KEY; // Replace with your actual API key
+  const YOUR_API_KEY = ""; // Replace with your actual API key
 
   // Function to verify the email address using Hunter.io
   const verifyEmail = async (email) => {
-    try {
-      const response = await axios.get('https://api.hunter.io/v2/email-verifier', {
-        params: {
-          email: email,
-          api_key: HUNTER_API_KEY
-        }
-      });
 
-      if (response.data.data.result === 'deliverable') {
+
+    try {
+      const response = await fetch(`v2/verify?email=${email}&apikey=${YOUR_API_KEY}`);
+      if (!response.ok) {
+        console.error('CORS policy error or invalid API request.');
+        return;
+      }
+      const data = await response.json();
+      console.log(data)
+      if (data.result === 'deliverable') {
         setEmailError('');
         return true;
       } else {

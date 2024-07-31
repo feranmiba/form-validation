@@ -2,6 +2,7 @@
   "name": "sharp",
   "homepage": "https://www.ivylushhotels.com/launch-rsvp/",
   "version": "0.1.0",
+  "proxy": "https://api.kickbox.com/",
   "private": true,
   "dependencies": {
     "@formspree/react": "^2.5.1",
